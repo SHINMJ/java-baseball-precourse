@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 public class Determine {
 	private Integer[] randomNum;
+	private Integer[] userNum;
 	private int strike;
 	private int ball;
 
@@ -13,17 +14,19 @@ public class Determine {
 		this.randomNum = randomNum;
 	}
 
-	public String hasDetermine(Integer[] userNum) {
-		strike = 0;
-		ball = 0;
+	public void setInit(Integer[] userNum) {
+		this.userNum = userNum;
+		this.strike = 0;
+		this.ball = 0;
+	}
 
+	public String hasDetermine() {
 		if (Arrays.deepEquals(randomNum, userNum)) {
 			return 3+" "+STRIKE;
 		}
 		for (int i = 0; i < userNum.length; i++) {
 			determine(userNum[i], i);
 		}
-
 		if (strike == 0 && ball == 0) {
 			return NOTHING;
 		}
@@ -61,11 +64,9 @@ public class Determine {
 		if ("".equals(s)) {
 			return b;
 		}
-
 		if ("".equals(b)) {
 			return s;
 		}
-
 		return s + ", " + b;
 	}
 

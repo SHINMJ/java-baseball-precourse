@@ -21,14 +21,16 @@ class DetermineTest {
 
 	@Test
 	public void 스트라이크3_성공() throws Exception {
-		String s = determine.hasDetermine(random);
+		determine.setInit(random);
+		String s = determine.hasDetermine();
 		Assertions.assertThat(s).isEqualTo("3 스트라이크");
 	}
 
 	@Test
 	public void 스트라이크1_볼2_성공() throws Exception {
 		Integer[] user = new Integer[]{1,3,2};
-		String s = determine.hasDetermine(user);
+		determine.setInit(user);
+		String s = determine.hasDetermine();
 		Assertions.assertThat(s).isEqualTo("1 스트라이크, 2 볼");
 	}
 
@@ -37,7 +39,8 @@ class DetermineTest {
 	public void 여러상황_성공(String user, String expect) {
 		String[] split = user.split(",");
 		Integer[] integers = Arrays.stream(split).mapToInt(Integer::parseInt).boxed().toArray(Integer[]::new);
-		String s = determine.hasDetermine(integers);
+		determine.setInit(integers);
+		String s = determine.hasDetermine();
 		Assertions.assertThat(s).isEqualTo(expect);
 	}
 
