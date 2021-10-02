@@ -25,7 +25,7 @@ public class Game {
 		setInit();
 		while (true) {
 			if (recursive()) {
-				System.out.println(Messages.COMPLETE);
+				System.out.println(Messages.COMPLETE.getMessage());
 				break;
 			}
 		}
@@ -49,13 +49,13 @@ public class Game {
 			if (validAskNewGameInput(i)) {
 				break;
 			}
-			System.out.println(Messages.END_ERROR);
+			System.out.println(Messages.END_ERROR.getMessage());
 		}
 		return "1".equals(i);
 	}
 
 	private String readUserInput(Messages text) {
-		System.out.println(text);
+		System.out.println(text.getMessage());
 		return Console.readLine();
 	}
 
@@ -79,7 +79,7 @@ public class Game {
 		if (findMatches(Pattern.compile(REG_EXP), input)) {
 			return true;
 		}
-		System.out.println(Messages.INPUT_ERROR);
+		System.out.println(Messages.INPUT_ERROR.getMessage());
 		return false;
 	}
 
