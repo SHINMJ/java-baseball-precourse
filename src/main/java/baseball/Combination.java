@@ -1,14 +1,14 @@
 package baseball;
 
+import static baseball.Constant.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import nextstep.utils.Randoms;
 
 public class Combination {
-	private static final int START_RANGE_NUM = 1;
-	private static final int END_RANGE_NUM = 9;
-	private static final int TOTAL_NUM = 3;
+
 
 	private Integer[] number;
 

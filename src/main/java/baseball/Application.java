@@ -8,8 +8,6 @@ public class Application {
         Combination combination = new Combination();
         Integer[] c = combination.getNumber();
 
-        System.out.println(Arrays.toString(c));
-
     }
 
 }
