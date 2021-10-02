@@ -9,6 +9,7 @@ public class Determine {
 	private Integer[] userNum;
 	private int strike;
 	private int ball;
+	private boolean isOut;
 
 	public Determine(Integer[] randomNum) {
 		this.randomNum = randomNum;
@@ -18,34 +19,46 @@ public class Determine {
 		this.userNum = userNum;
 		this.strike = 0;
 		this.ball = 0;
+		this.isOut = false;
+	}
+
+	public boolean getIsOut() {
+		return this.isOut;
 	}
 
 	public String hasDetermine() {
-		if (Arrays.deepEquals(randomNum, userNum)) {
-			return 3+" "+STRIKE;
+		if (isStrikeOut()) {
+			return TOTAL_NUM +""+Status.STRIKE.getStatus();
 		}
 		for (int i = 0; i < userNum.length; i++) {
 			determine(userNum[i], i);
 		}
 		if (strike == 0 && ball == 0) {
-			return NOTHING;
+			return Status.NOTHING.getStatus();
 		}
 		return getResult();
 	}
 
+	private boolean isStrikeOut() {
+		if (Arrays.deepEquals(randomNum, userNum)) {
+			addStrike(TOTAL_NUM);
+			return true;
+		}
+		return false;
+	}
+
 	private void determine(Integer userNum, int index) {
 		if (isStrike(userNum, index)) {
-			strike++;
 			return;
 		}
 		if (isBall(userNum)) {
-			ball++;
 			return;
 		}
 	}
 
 	private boolean isStrike(Integer number, int index) {
 		if (randomNum[index].equals(number)) {
+			addStrike(1);
 			return true;
 		}
 		return false;
@@ -53,21 +66,33 @@ public class Determine {
 
 	private boolean isBall(Integer number) {
 		if (Arrays.asList(randomNum).contains(number)) {
+			addBall();
 			return true;
 		}
 		return false;
 	}
 
+	private void addStrike(int add) {
+		this.strike = strike + add;
+		if (this.strike == 3) {
+			this.isOut = true;
+		}
+	}
+
+	private void addBall() {
+		this.ball = ball + 1;
+	}
+
 	private String getResult() {
-		String s = toResult(strike, STRIKE);
-		String b = toResult(ball, BALL);
+		String s = toResult(strike, Status.STRIKE.getStatus());
+		String b = toResult(ball, Status.BALL.getStatus());
 		if ("".equals(s)) {
 			return b;
 		}
 		if ("".equals(b)) {
 			return s;
 		}
-		return s + ", " + b;
+		return s + " " + b;
 	}
 
 	private String toResult(int n, String text) {
@@ -76,7 +101,6 @@ public class Determine {
 			return "";
 		}
 		sb.append(n);
-		sb.append(" ");
 		sb.append(text);
 		return sb.toString();
 	}

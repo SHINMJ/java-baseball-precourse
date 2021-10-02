@@ -48,4 +48,24 @@ public class ApplicationTest extends NSTest {
         Application.main(new String[]{});
     }
 
+    @Test
+    public void 사용자입력_오류_후_성공() throws Exception {
+        try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
+            mockRandoms.when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
+                .thenReturn(3, 8, 2);
+            run("1ㅇㄴ", "123", "382", "2");
+            verify("[ERROR]", "2볼", "게임 끝");
+        }
+    }
+
+    @Test
+    public void 종료_입력_실패_다시입력_종료() throws Exception {
+        try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
+            mockRandoms.when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
+                .thenReturn(3, 8, 2);
+            run("382", "123",  "2");
+            verify("3스트라이크", "1 or 2", "게임 끝");
+        }
+    }
+
 }
