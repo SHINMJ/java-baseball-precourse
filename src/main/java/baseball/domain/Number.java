@@ -5,6 +5,7 @@ import baseball.utils.Constants;
 import java.util.Objects;
 
 public final class Number {
+
     private static final String NUMBER_FORMAT_MESSAGE = "1~9까지의 숫자만 입력 가능합니다.";
 
     private final Integer number;
@@ -31,7 +32,7 @@ public final class Number {
     private static Integer parseInt(String number) {
         try {
             return Integer.parseInt(number);
-        }catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new BusinessException(NUMBER_FORMAT_MESSAGE);
         }
     }
@@ -57,10 +58,4 @@ public final class Number {
         return Objects.hash(number);
     }
 
-    @Override
-    public String toString() {
-        return "Number{" +
-            "number=" + number +
-            '}';
-    }
 }

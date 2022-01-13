@@ -1,13 +1,13 @@
 package baseball.domain;
 
 import baseball.utils.Constants;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import nextstep.utils.Randoms;
 
 public final class Numbers {
+
     private final List<Number> numbers;
 
     private Numbers(List<Number> numbers) {
@@ -15,7 +15,7 @@ public final class Numbers {
     }
 
     public static Numbers createRandomNumbers() {
-        List<Number> numbers =  new ArrayList<>();
+        List<Number> numbers = new ArrayList<>();
         while (numbers.size() < Constants.LENGTH) {
             numbers = addRandomNumbers(numbers, pickRandomNumber());
         }
@@ -113,13 +113,5 @@ public final class Numbers {
     public int hashCode() {
         return Objects.hash(numbers);
     }
-
-    @Override
-    public String toString() {
-        return "Numbers{" +
-            "numbers=" + numbers +
-            '}';
-    }
-
 
 }

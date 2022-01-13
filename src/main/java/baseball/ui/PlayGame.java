@@ -33,7 +33,7 @@ public class PlayGame {
         String readLine = Console.readLine();
         try {
             this.userNumbers = UserNumbers.of(readLine);
-        }catch (BusinessException e) {
+        } catch (BusinessException e) {
             System.out.println(e.getMessage());
             inputUserNumbers();
         }
@@ -48,7 +48,7 @@ public class PlayGame {
         String readLine = Console.readLine();
         try {
             return UserInputContinue.from(readLine);
-        }catch (BusinessException e) {
+        } catch (BusinessException e) {
             System.out.println(e.getMessage());
             return inputContinue();
         }
