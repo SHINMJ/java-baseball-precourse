@@ -4,6 +4,7 @@ import baseball.exception.BusinessException;
 import baseball.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UserNumbers {
 
@@ -11,7 +12,6 @@ public class UserNumbers {
     private static final String DUPLICATE_MESSAGE = "중복된 숫자가 존재합니다.";
 
     private final Numbers numbers;
-    private String result;
 
     private UserNumbers(String input) {
         validateLength(input);
@@ -39,6 +39,9 @@ public class UserNumbers {
     }
 
     private void validateLength(String input) {
+        if (Objects.isNull(input)) {
+            throw new BusinessException(LENGTH_MESSAGE);
+        }
         if (input.length() != Constants.LENGTH) {
             throw new BusinessException(LENGTH_MESSAGE);
         }
