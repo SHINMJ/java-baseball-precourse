@@ -11,6 +11,7 @@ public class UserNumbers {
     private static final String DUPLICATE_MESSAGE = "중복된 숫자가 존재합니다.";
 
     private final Numbers numbers;
+    private String result;
 
     private UserNumbers(String input) {
         validateLength(input);
@@ -23,6 +24,22 @@ public class UserNumbers {
 
     public boolean is(Numbers numbers) {
         return this.numbers.equals(numbers);
+    }
+
+    public boolean determined(Numbers randomNumbers) {
+        int countStrike = numbers.countStrike(randomNumbers);
+        if (isStrikeOut(countStrike)) {
+            this.result = "3스트라이크";
+            return true;
+        }
+
+        int countBall = numbers.countBall(randomNumbers);
+        determineResult(countStrike, countBall);
+        return false;
+    }
+
+    public void printResult() {
+        System.out.println(result);
     }
 
     private void validateLength(String input) {
@@ -48,19 +65,19 @@ public class UserNumbers {
         return numbers;
     }
 
-    public boolean determined(Numbers randomNumbers) {
-        int countStrike = numbers.countStrike(randomNumbers);
-        if (countStrike == Constants.LENGTH) {
-            System.out.println("3스트라이크");
-            return true;
-        }
+    private boolean isStrikeOut(int countStrike) {
+        return countStrike == Constants.LENGTH;
+    }
 
-        int countBall = numbers.countBall(randomNumbers);
-        if (countStrike == Constants.NON_MATCH_NUMBER && countBall == Constants.NON_MATCH_NUMBER) {
-            System.out.println("낫싱");
-            return false;
+    private boolean isNothing(int countStrike, int countBall) {
+        return countStrike == Constants.NON_MATCH_NUMBER && countBall == Constants.NON_MATCH_NUMBER;
+    }
+
+    private void determineResult(int countStrike, int countBall) {
+        if (isNothing(countStrike, countBall)) {
+            this.result = "낫싱";
+            return;
         }
-        System.out.println(String.format("%s스트라이크 %s볼", countStrike, countBall));
-        return false;
+        this.result = String.format("%s스트라이크 %s볼", countStrike, countBall);
     }
 }
