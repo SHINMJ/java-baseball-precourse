@@ -1,6 +1,7 @@
 package baseball.domain;
 
 import baseball.utils.Constants;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -43,15 +44,33 @@ public final class Numbers {
 
     int countBall(Numbers target) {
         int ball = 0;
-        
+
+        for (int i = 0; i < numbers.size(); i++) {
+            ball += countTargetBall(target, i);
+        }
         return ball;
     }
 
-    private int isBall(Number target) {
-        if (numbers.contains(target)) {
+    private int countTargetBall(Numbers target, int index) {
+        int ball = 0;
+        for (int i = 0; i < target.size(); i++) {
+            ball += isBall(index, i, target);
+        }
+        return ball;
+    }
+
+    private int isBall(int index, int targetIndex, Numbers target) {
+        if (index == targetIndex) {
+            return 0;
+        }
+        if (equalsAnotherIndexNumber(index, targetIndex, target)) {
             return 1;
         }
         return 0;
+    }
+
+    private boolean equalsAnotherIndexNumber(int index, int targetIndex, Numbers target) {
+        return numbers.get(index).equals(target.numbers.get(targetIndex));
     }
 
     private int isStrike(int index, Numbers target) {

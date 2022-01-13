@@ -29,17 +29,13 @@ public class UserNumbers {
     public boolean determined(Numbers randomNumbers) {
         int countStrike = numbers.countStrike(randomNumbers);
         if (isStrikeOut(countStrike)) {
-            this.result = "3스트라이크";
+            System.out.println("3스트라이크");
             return true;
         }
 
         int countBall = numbers.countBall(randomNumbers);
-        determineResult(countStrike, countBall);
+        printResult(countStrike, countBall);
         return false;
-    }
-
-    public void printResult() {
-        System.out.println(result);
     }
 
     private void validateLength(String input) {
@@ -73,11 +69,24 @@ public class UserNumbers {
         return countStrike == Constants.NON_MATCH_NUMBER && countBall == Constants.NON_MATCH_NUMBER;
     }
 
-    private void determineResult(int countStrike, int countBall) {
+    private String makeResult(int countStrike, int countBall) {
+        if (countStrike == Constants.NON_MATCH_NUMBER) {
+            return String.format("%s볼", countBall);
+        }
+
+        if (countBall == Constants.NON_MATCH_NUMBER) {
+            return String.format("%s스트라이크", countStrike);
+        }
+
+        return String.format("%s스트라이크 %s볼", countStrike, countBall);
+    }
+
+    private void printResult(int countStrike, int countBall) {
         if (isNothing(countStrike, countBall)) {
-            this.result = "낫싱";
+            System.out.println("낫싱");
             return;
         }
-        this.result = String.format("%s스트라이크 %s볼", countStrike, countBall);
+        System.out.println(makeResult(countStrike, countBall));
     }
+
 }

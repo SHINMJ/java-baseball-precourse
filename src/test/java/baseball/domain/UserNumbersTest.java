@@ -1,5 +1,6 @@
 package baseball.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -30,4 +31,14 @@ class UserNumbersTest {
             .isInstanceOf(BusinessException.class)
             .hasMessage(message);
     }
+
+    @ParameterizedTest
+    @CsvSource(value = {"123:true", "256:false", "689:false", "136:false"}, delimiter = ':')
+    void 사용자입력_판정(String input, boolean expected) {
+        Numbers numbers = Numbers.of(Arrays.asList(Number.valueOf(1), Number.valueOf(2), Number.valueOf(3)));
+        UserNumbers userNumbers = UserNumbers.of(input);
+
+        assertThat(userNumbers.determined(numbers)).isEqualTo(expected);
+    }
+
 }
